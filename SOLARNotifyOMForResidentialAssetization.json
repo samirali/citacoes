@@ -1,0 +1,630 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SOLARNotifyOMForResidentialAssetization",
+    "description": "[SOLAR - Assetização] - Esta API tem como objetivo prover ao NETSMS uma interface de callback, para que uma vez que as propostas forem processadas e tenham seus produtos instalados, o Solar seja avisado para criar a estrutura correta de pontos e assets (ativos). Mais detalhes na Integration Procedure SOLAR/NotifyOMForResidentialAssetization. <table> <thead> <tr> <th>Versão</th> <th>Elaborado por</th> <th>Data</th> <th>Alterações</th> </tr> </thead> <tbody> <tr> <td>1</td> <td>João Ricardo Bigoto Rodrigues</td> <td>2023-01-24</td> <td>Versão inicial</td> </tr> </tbody> </table>",
+    "version": "1",
+    "contact": {
+      "name": "João Ricardo Bigoto Rodrigues",
+      "email": "joao.rodrigues@claro.com.br"
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/SOLARNotifyOMForResidentialAssetization": {
+      "post": {
+        "summary": "Informa o Salesforce sobre a instalação dos produtos da residencial",
+        "description": "Esta chamada é resolvida pela Integration Procedure de mesmo nome no Salesforce. Funcionalmente, será feita a associação entre o pedido e os itens do pedido, depois criados os Subscriptions e demais objetos relacionados. Com isso o OM poderá continuar a orquestração e finalizar o processo de assetização nativamente.",
+        "requestBody": {
+          "description": "Objeto",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SOLARNotifyOMForResidentialAssetizationRequest"
+              },
+              "examples": {
+                "200 success true": {
+                  "value": {
+                    "order": {
+                      "proposalId": "12345678",
+                      "salesforceOrderId": "8017e000001qexqAAA"
+                    },
+                    "billing": {
+                      "customerAccountId": "12345678",
+                      "operatorCode": "003",
+                      "status": "ATIVO",
+                      "statusReason": "SOLICITACAO CLIENTE",
+                      "embratelStatus": "ATIVO",
+                      "embratelStatusReason": "SOLICITACAO CLIENTE",
+                      "isEmbratelClient": true,
+                      "startDate": "06/10/2022",
+                      "subscriberType": "NORMAL",
+                      "isCobillingComboMulti": true,
+                      "isCobillingNetFone": true
+                    },
+                    "installation": {
+                      "points": [
+                        {
+                          "pointId": "2213",
+                          "pointType": "PRINCIPAL",
+                          "characteristic": "DIGITAL",
+                          "lastModifiedDate": "06/10/2022 15:22",
+                          "packageProducts": {
+                            "id": "51339",
+                            "orderItemId": "8021H000002rzI3QAI",
+                            "startDate": "06/10/2022",
+                            "status": "ATIVO",
+                            "telephoneNumber": "11945449933",
+                            "additionalProducts": [
+                              {
+                                "id": "51339",
+                                "orderItemId": "8021H000002rzI3QAI",
+                                "startDate": "06/10/2022",
+                                "status": "ATIVO",
+                                "telephoneNumber": "11945448821",
+                                "additionalProducts": [
+                                  {
+                                    "id": "51339",
+                                    "orderItemId": "8021H000002rzI3QAI",
+                                    "startDate": "06/10/2022",
+                                    "status": "ATIVO",
+                                    "telephoneNumber": "11945448821"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "standAlone": {
+                        "lastModifiedDate": "06/10/2022 15:22",
+                        "additionalProducts": [
+                          {
+                            "id": "51339",
+                            "orderItemId": "8021H000002rzI3QAI",
+                            "startDate": "06/10/2022",
+                            "status": "ATIVO",
+                            "telephoneNumber": "11945448821",
+                            "additionalProducts": [
+                              {
+                                "id": "51339",
+                                "orderItemId": "8021H000002rzI3QAI",
+                                "startDate": "06/10/2022",
+                                "status": "ATIVO",
+                                "telephoneNumber": "11945448821"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Exemplo de request HTTP: 200. Este ocorre quando o pedido é encontrado e o retorno é processado com sucesso. Lembrando que no Salesforce só se retorna status 200, a menos que ocorra algum erro de conexão. Nos casos de falha de negócio, o retorno também será 200, porém com success = false e a mensagem detalhada do problema. (exemplo de response com código 201, porém retornará 200)"
+                },
+                "200 success false": {
+                  "value": {
+                    "billing": {
+                      "customerAccountId": "12345678",
+                      "operatorCode": "003",
+                      "status": "ATIVO",
+                      "statusReason": "SOLICITACAO CLIENTE",
+                      "embratelStatus": "ATIVO",
+                      "embratelStatusReason": "SOLICITACAO CLIENTE",
+                      "isEmbratelClient": true,
+                      "startDate": "06/10/2022",
+                      "subscriberType": "NORMAL",
+                      "isCobillingComboMulti": true,
+                      "isCobillingNetFone": true
+                    },
+                    "installation": {
+                      "points": [
+                        {
+                          "pointId": "2213",
+                          "pointType": "PRINCIPAL",
+                          "characteristic": "DIGITAL",
+                          "lastModifiedDate": "06/10/2022 15:22",
+                          "packageProducts": {
+                            "id": "51339",
+                            "orderItemId": "8021H000002rzI3QAI",
+                            "startDate": "06/10/2022",
+                            "status": "ATIVO",
+                            "telephoneNumber": "11945449933",
+                            "additionalProducts": [
+                              {
+                                "id": "51339",
+                                "orderItemId": "8021H000002rzI3QAI",
+                                "startDate": "06/10/2022",
+                                "status": "ATIVO",
+                                "telephoneNumber": "11945448821",
+                                "additionalProducts": [
+                                  {
+                                    "id": "51339",
+                                    "orderItemId": "8021H000002rzI3QAI",
+                                    "startDate": "06/10/2022",
+                                    "status": "ATIVO",
+                                    "telephoneNumber": "11945448821"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "standAlone": {
+                        "lastModifiedDate": "06/10/2022 15:22",
+                        "additionalProducts": [
+                          {
+                            "id": "51339",
+                            "orderItemId": "8021H000002rzI3QAI",
+                            "startDate": "06/10/2022",
+                            "status": "ATIVO",
+                            "telephoneNumber": "11945448821",
+                            "additionalProducts": [
+                              {
+                                "id": "51339",
+                                "orderItemId": "8021H000002rzI3QAI",
+                                "startDate": "06/10/2022",
+                                "status": "ATIVO",
+                                "telephoneNumber": "11945448821"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "notifyomforassetization"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 success true",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SOLARNotifyOMForResidentialAssetizationResponse"
+                },
+                "example": {
+                  "detailedMessage": "Retorno processado com sucesso.",
+                  "success": true
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "200 success false",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SOLARNotifyOMForResidentialAssetizationResponse"
+                },
+                "example": {
+                  "detailedMessage": "Pedido não encontrado no Salesforce.",
+                  "success": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": {
+                  "message": "Session expired or invalid",
+                  "errorCode": "INVALID_SESSION_ID"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": {
+                  "result": {
+                    "error": {
+                      "detailedMessage": "Something wrong happened during the processing in Salesforce. Please check if order status was changed to be treated manually.",
+                      "errorCode": "API-SOLARASSETIZERSUPRAHANDLER-500",
+                      "httpCode": "500",
+                      "link": {
+                        "href": "https://api.claro.com.br/docs",
+                        "rel": "related"
+                      },
+                      "message": "Internal Server Error"
+                    },
+                    "apiVersion": "",
+                    "transactionId": ""
+                  },
+                  "success": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    },
+    "schemas": {
+      "SOLARNotifyOMForResidentialAssetizationRequest": {
+        "description": "Objeto enviado pelo sistema consumidor.",
+        "type": "object",
+        "required": [
+          "order", "billing", "installation"
+        ],
+        "properties": {
+          "order": {
+            "type": "object",
+            "description": "Dados do pedido para identificação",
+            "required": ["proposalId","salesforceOrderId"],
+            "properties": {
+              "proposalId": {
+                "type": "string",
+                "description": "identificador do pedido no NETSMS",
+                "example": "12345678"
+              },
+              "salesforceOrderId": {
+                "type": "string",
+                "description": "identificador do pedido no Salesforce",
+                "example": "8017e000001qexqAAA"
+              }
+            }
+          },
+          "billing": {
+            "type": "object",
+            "description": "Dados de faturamento",
+            "required": [
+              "customerAccountId",
+              "operatorCode",
+              "status",
+              "statusReason",
+              "isEmbratelClient",
+              "startDate",
+              "subscriberType",
+              "isCobillingComboMulti",
+              "isCobillingNetFone"
+            ],
+            "properties": {
+              "customerAccountId": {
+                "type": "string",
+                "description": "id do contrato no NETSMS",
+                "example": "12345678"
+              },              
+              "operatorCode": {
+                "type": "string",
+                "description": "código do operador no NETSMS",
+                "example": "003"
+              },
+              "status": {
+                "type": "string",
+                "description": "status do contrato",
+                "example": "ATIVO"
+              },
+              "statusReason": {
+                "type": "string",
+                "description": "motivo do status do contrato",
+                "example": "SOLICITACAO CLIENTE"
+              },
+              "embratelStatus": {
+                "type": "string",
+                "description": "status do contrato na embratel",
+                "example": "ATIVO"
+              },
+              "embratelStatusReason": {
+                "type": "string",
+                "description": "motivo do status do contrato na embratel",
+                "example": "SOLICITACAO CLIENTE"
+              },
+              "isEmbratelClient": {
+                "type": "boolean",
+                "description": "indica se é cliente embratel",
+                "example": true
+              },
+              "startDate": {
+                "type": "string",
+                "description": "data de início do contrato",
+                "example": "06/10/2022"
+              },
+              "subscriberType": {
+                "type": "string",
+                "description": "tipo de assinante",
+                "example": "NORMAL"
+              },
+              "isCobillingComboMulti": {
+                "type": "boolean",
+                "description": "indica se é cliente combo multi",
+                "example": true
+              },
+              "isCobillingNetFone": {
+                "type": "boolean",
+                "description": "indica se possui coboletamento com a embratel",
+                "example": true
+              }
+            }
+          },
+          "installation": {
+            "type": "object",
+            "description": "Dados de pontos e produtos",
+            "required": [""],
+            "properties": {
+              "points":{
+                "description": "Dados de pontos e seus produtos relacionados",
+                "type": "object",
+                "properties": {
+                  "pointId": {
+                    "type": "string",
+                    "description": "id do ponto",
+                    "example": "2213"
+                  },
+                  "pointType": {
+                    "type": "string",
+                    "description": "tipo do ponto",
+                    "example": "PRINCIPAL"
+                  },
+                  "characteristic": {
+                    "type": "string",
+                    "description": "característica do ponto",
+                    "example": "DIGITAL"
+                  },
+                  "lastModifiedDate": {
+                    "type": "string",
+                    "description": "data de última modificação do ponto",
+                    "example": "06/10/2022 15:22"
+                  },
+                  "packageProducts":{
+                    "type": "object",
+                    "description": "Dados do produto principal do ponto",
+                    "$ref": "#/components/schemas/productSchema"
+                  }
+                }
+              },
+              "standAlone":{
+                "description": "Produtos sem associação a pontos",
+                "type": "object",
+                "properties": {
+                  "additionalProducts":{
+                    "type": "object",
+                    "description": "Dados do produto principal do ponto",
+                    "$ref": "#/components/schemas/additionalProductSchema"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "xml"
+        }
+      },
+      "productSchema":{
+        "description": "Objeto que representa um produto.",
+        "type": "object",
+        "required": [
+          "id",
+          "orderItemId",
+          "startDate",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "identificador do produto no NETSMS",
+            "example": "51339"
+          },
+          "orderItemId": {
+            "type": "string",
+            "description": "identificador do item do pedido no Salesforce",
+            "example": "8021H000002rzI3QAI"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "data de instalação do produto",
+            "example": "06/10/2022"
+          },
+          "status": {
+            "type": "string",
+            "description": "status do produto",
+            "example": "ATIVO"
+          },
+          "telephoneNumber": {
+            "type": "string",
+            "description": "número do telefone (caso de produto de telefonia)",
+            "example": "1145449933"
+          },
+          "additionalProducts": {
+            "$ref": "#/components/schemas/additionalProductSchema"
+          }
+        },
+        "xml": {
+          "name": "xml"
+        }
+      },
+      "additionalProductSchema":{
+        "description": "Dados do produto adicional, relacionado ao principal.",
+        "type": "object",
+        "required": [
+          "id",
+          "orderItemId",
+          "startDate",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "identificador do produto no NETSMS",
+            "example": "51339"
+          },
+          "orderItemId": {
+            "type": "string",
+            "description": "identificador do item do pedido no Salesforce",
+            "example": "8021H000002rzI3QAI"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "data de instalação do produto",
+            "example": "06/10/2022"
+          },
+          "status": {
+            "type": "string",
+            "description": "status do produto",
+            "example": "ATIVO"
+          },
+          "telephoneNumber": {
+            "type": "string",
+            "description": "número do telefone (caso de produto de telefonia)",
+            "example": "1145449933"
+          },
+          "additionalProducts": {
+            "type": "object",
+            "description": "Dados do produto adicional, relacionado ao adicional",
+            "required": [
+              "id",
+              "orderItemId",
+              "startDate",
+              "status"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "identificador do produto no NETSMS",
+                "example": "51339"
+              },
+              "orderItemId": {
+                "type": "string",
+                "description": "identificador do item do pedido no Salesforce",
+                "example": "8021H000002rzI3QAI"
+              },
+              "startDate": {
+                "type": "string",
+                "description": "data de instalação do produto",
+                "example": "06/10/2022"
+              },
+              "status": {
+                "type": "string",
+                "description": "status do produto",
+                "example": "ATIVO"
+              },
+              "telephoneNumber": {
+                "type": "string",
+                "description": "número do telefone (caso de produto de telefonia)",
+                "example": "1145449933"
+              }              
+            }
+
+          }
+        },
+        "xml": {
+          "name": "xml"
+        }
+      },
+      "SOLARNotifyOMForResidentialAssetizationResponse": {
+        "description": "Objeto retornado pelo Integration Procedure.",
+        "type": "object",
+        "required": [
+          "apiVersion",
+          "transactionId",
+          "data"
+        ],
+        "properties": {
+          "detailedMessage": {
+            "type": "string",
+            "description": "Mensagem que detalha o resultado da operação solicitada",
+            "example": "Retorno processado com sucesso."
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Indicador de sucesso ou falha na operação solicitada.",
+            "example": true
+          }
+        },
+        "xml": {
+          "name": "xml"
+        }
+      },
+      "error": {
+        "description": "Objeto retornado na ocorência de algum erro (4xx/5xx)",
+        "type": "object",
+        "required": [
+          "apiVersion",
+          "transactionId",
+          "error"
+        ],
+        "properties": {
+          "apiVersion": {
+            "type": "string",
+            "description": "Retorna sempre a versão major e minor da API efetivamente consumida. O formato é “versão major;versão minor”. Exemplo: “apiVersion”: “2;2015-08-12”. Quando a versão minor não é solicitada, a versão contratada pelo cliente é retornada. Quando não há restrição de contratação, retorna a última disponível."
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Retorna o identificador de rastreabilidade de transação gerado pelo API. Caso o identificador foi fornecido pelo cliente, o mesmo é ecoado sem alteração."
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "httpCode": {
+                "type": "string",
+                "description": "Código de erro HTTP"
+              },
+              "errorCode": {
+                "type": "string",
+                "description": "Código de erro interno da API no formato. Ex.: API-3566. Esse código poderá ser utilizado internamente pelo cliente para mapeamento customizado da mensagem de erro."
+              },
+              "message": {
+                "type": "string",
+                "description": "Mensagem de erro resumida"
+              },
+              "detailedMessage": {
+                "type": "string",
+                "description": "Mensagem de erro detalhada"
+              },
+              "link": {
+                "type": "object",
+                "description": "Objeto para conter o link para a página com a documentação detalhada dos códigos e descrições dos erros no API Portal\n",
+                "properties": {
+                  "rel": {
+                    "type": "string",
+                    "enum": [
+                      "related"
+                    ],
+                    "description": "Para referenciar a página de erros do API portal será utilizada a semântica “related” nesse cenário"
+                  },
+                  "href": {
+                    "type": "string",
+                    "description": "URL completa do recurso"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "xml"
+        }
+      }
+    }
+  }
+}

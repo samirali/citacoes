@@ -1,0 +1,1127 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Customer - Customer Orders (MS: customer-netsms-customerorders-v1)",
+    "description": "<table>   \n  <thead>  \n    <tr>\n      <th>Version</th>\n      <th>Author</th>\n      <th>Date</th>\n      <th>Changes</th>\n    </tr>  \n  </thead>\n  <tbody>\n    <tr>\n      <td>1.0</td>\n      <td>João Silvestre de Araújo</td>\n      <td>2024-05-06</td>\n      <td>[Modernização SOA - Baixa de OS] Versão inicial.</td>\n    </tr>\n  </tbody>\n\n</table> \n\n## Objetivo\nMicrosserviço responsável pela criação de SOLIC's/OC's e SOLIC's/OS's. (Ordens de configuração e Ordens de serviço respectivamente)\n\n## Consumidores\n\nAté a data desta especificação os potenciais consumidores são:\n  * <b> API - residential-customerorders-v1 </b>  - API responsável por prover o consumo do microsserviço  customer-netsms-customerorders-v1 pelos Canais Digitais e de Ura da Claro Residencial\n\n## Provedores\nO microsserviço <b> customer-netsms-customerorders-v1 </b> é responsável pela de criação de SOLIC's/OC's e SOLIC's/OS's. (Ordens de configuração e Ordens de serviço respectivamente)\n\n## Contexto em que o microsserviço se insere\n\nEste microsserviço está inserido no conjunto de microsserviços para a Modernização do processo de Baixa de OS.\n  \nOs principais elementos desse sistema são:\n\n<table border=5>\n    <tr>\n        <th><b>OPEN API</b></th>\n        <th><b>LEGADO NETSMS</b></th>\n    </tr>\n    <tr>\n        <th>Customer Order</th>\n        <th>Solicitação</th>\n    </tr>\n    <tr>\n        <th>Service Order</th>\n        <th>Ordem de serviço</th>\n    </tr>\n</table>   \n",
+    "version": "1;2024-05-06",
+    "contact": {
+      "name": "COE-Microsservicos",
+      "email": "coe.ms@claro.com.br"
+    },
+    "x-claro-domains": [
+      "Customer"
+    ]
+  },
+  "security": [
+    {
+      "BasicAuth": []
+    }
+  ],
+  "paths": {
+    "/netsms/customerorders": {
+      "post": {
+        "summary": "Método responsável pela criação de SOLIC's/OC's e SOLIC's/OS's. (Ordens de configuração e Ordens de serviço respectivamente)\n",
+        "description": "Relação dos parâmetros de entrada.\n\n    \n    #01 - Request por cityId/customerAccountId/customerOrderTypeId\n    \n    | Obrigatoriedade  | Tipo Parâmetro | Parâmetro                |\n    |------------------|----------------|--------------------------|\n    | Não obrigatório  | HTTP Header    | X-Correlation-Id         |\n    | Obrigatório      | body           | cityId                   |\n    | Obrigatório      | body           | customerAccountId        |\n    | Obrigatório      | body           | customerOrderTypeId      |\n    | Obrigatório      | body           | newProductId             |\n    | Obrigatório      | body           | currentProductId         |            \n    | Não Obrigatório  | body           | contact.name             | \n    | Não Obrigatório  | body           | contact.telephoneNumber  |\n    | Obrigatório      | body           | paymentPlanId            |\n    | Obrigatório      | body           | isPaymentExempt          |\n    | Obrigatório      | body           | pointId                  |\n    | Obrigatório      | body           | isImmediate              |\n    | Não Obrigatório  | body           | comment                  |\n\n    #02 - Request por operatorCode/customerAccountId/customerOrderTypeId\n    \n    | Obrigatoriedade  | Tipo Parâmetro | Parâmetro                |\n    |------------------|----------------|--------------------------|\n    | Não obrigatório  | HTTP Header    | X-Correlation-Id         |\n    | Obrigatório      | body           | operatorCode             |\n    | Obrigatório      | body           | customerAccountId        |\n    | Obrigatório      | body           | customerOrderTypeId      |\n    | Obrigatório      | body           | newProductId             |\n    | Obrigatório      | body           | currentProductId         |            \n    | Não Obrigatório  | body           | contact.name             | \n    | Não Obrigatório  | body           | contact.telephoneNumber  |\n    | Obrigatório      | body           | paymentPlanId            |\n    | Obrigatório      | body           | isPaymentExempt          |\n    | Obrigatório      | body           | pointId                  |\n    | Obrigatório      | body           | isImmediate              |\n    | Não Obrigatório  | body           | comment                  |\n    \n    #03 - Request por cityId/customerAccountId/serviceOrderTypeId\n    \n    | Obrigatoriedade  | Tipo Parâmetro | Parâmetro                |\n    |------------------|----------------|--------------------------|\n    | Não obrigatório  | HTTP Header    | X-Correlation-Id         |\n    | Obrigatório      | body           | cityId                   |\n    | Obrigatório      | body           | customerAccountId        |\n    | Obrigatório      | body           | serviceOrderTypeId       |\n    | Obrigatório      | body           | newProductId             |\n    | Obrigatório      | body           | currentProductId         |            \n    | Não Obrigatório  | body           | contact.name             | \n    | Não Obrigatório  | body           | contact.telephoneNumber  |\n    | Obrigatório      | body           | paymentPlanId            |\n    | Obrigatório      | body           | isPaymentExempt          |\n    | Obrigatório      | body           | pointId                  |\n    | Obrigatório      | body           | isImmediate              |\n    | Não Obrigatório  | body           | comment                  |\n\n    #04 - Request por operatorCode/customerAccountId/serviceOrderTypeId\n    \n    | Obrigatoriedade  | Tipo Parâmetro | Parâmetro                |\n    |------------------|----------------|--------------------------|\n    | Não obrigatório  | HTTP Header    | X-Correlation-Id         |\n    | Obrigatório      | body           | operatorCode             |\n    | Obrigatório      | body           | customerAccountId        |\n    | Obrigatório      | body           | serviceOrderTypeId       |\n    | Obrigatório      | body           | newProductId             |\n    | Obrigatório      | body           | currentProductId         |            \n    | Não Obrigatório  | body           | contact.name             | \n    | Não Obrigatório  | body           | contact.telephoneNumber  |\n    | Obrigatório      | body           | paymentPlanId            |\n    | Obrigatório      | body           | isPaymentExempt          |\n    | Obrigatório      | body           | pointId                  |\n    | Obrigatório      | body           | isImmediate              |\n    | Não Obrigatório  | body           | comment                  |\n    \n    \n",
+        "tags": [
+          "Criação de SOLIC's/OC's e SOLIC's/OS's"
+        ],
+        "parameters": [
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "required": false,
+            "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/post.order.activation.status.request.body.node"
+              },
+              "examples": {
+                "01 - Request por cityId/customerAccountId/customerOrderTypeId": {
+                  "value": {
+                    "data": {
+                      "cityId": "05509",
+                      "customerAccountId": 14613,
+                      "customerOrderTypeId": 10,
+                      "newProductId": 999,
+                      "currentProductId": 999,
+                      "contact": {
+                        "name": "IncluirOSServicoManutencao / incluirComandoManutencaoRequest",
+                        "telephoneNumber": "11985694501"
+                      },
+                      "paymentPlanId": 1,
+                      "isPaymentExempt": "FALSE",
+                      "pointId": 649778,
+                      "isImmediate": "FALSE",
+                      "comment": "IncluirOSServicoManutencao / incluirComandoManutencaoRequest"
+                    }
+                  }
+                },
+                "02 - Request por operatorCode/customerAccountId/customerOrderTypeId": {
+                  "value": {
+                    "data": {
+                      "operatorCode": "052",
+                      "customerAccountId": 14613,
+                      "customerOrderTypeId": 10,
+                      "newProductId": 999,
+                      "currentProductId": 999,
+                      "contact": {
+                        "name": "IncluirOSServicoManutencao / incluirComandoManutencaoRequest",
+                        "telephoneNumber": "11985694501"
+                      },
+                      "paymentPlanId": 1,
+                      "isPaymentExempt": "FALSE",
+                      "pointId": 649778,
+                      "isImmediate": "FALSE",
+                      "comment": "IncluirOSServicoManutencao / incluirComandoManutencaoRequest"
+                    }
+                  }
+                },
+                "03 - Request por cityId/customerAccountId/serviceOrderTypeId": {
+                  "value": {
+                    "data": {
+                      "cityId": "05509",
+                      "customerAccountId": 14613,
+                      "serviceOrderTypeId": 10,
+                      "newProductId": 999,
+                      "currentProductId": 999,
+                      "contact": {
+                        "name": "IncluirOSServicoManutencao / incluirComandoManutencaoRequest",
+                        "telephoneNumber": "11985694501"
+                      },
+                      "paymentPlanId": 1,
+                      "isPaymentExempt": "FALSE",
+                      "pointId": 649778,
+                      "isImmediate": "FALSE",
+                      "comment": "IncluirOSServicoManutencao / incluirComandoManutencaoRequest"
+                    }
+                  }
+                },
+                "04 - Request por operatorCode/customerAccountId/serviceOrderTypeId": {
+                  "value": {
+                    "data": {
+                      "operatorCode": "052",
+                      "customerAccountId": 14613,
+                      "serviceOrderTypeId": 10,
+                      "newProductId": 999,
+                      "currentProductId": 999,
+                      "contact": {
+                        "name": "IncluirOSServicoManutencao / incluirComandoManutencaoRequest",
+                        "telephoneNumber": "11985694501"
+                      },
+                      "paymentPlanId": 1,
+                      "isPaymentExempt": "FALSE",
+                      "pointId": 649778,
+                      "isImmediate": "FALSE",
+                      "comment": "IncluirOSServicoManutencao / incluirComandoManutencaoRequest"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Operation executed successfully.",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+                "schema": {
+                  "type": "string",
+                  "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+                },
+                "required": true
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/post.order.activation.status.response.body.node"
+                },
+                "examples": {
+                  "SERVICE_ORDER": {
+                    "value": {
+                      "data": {
+                        "customerOrderId": 342287537,
+                        "serviceOrderId": 2453431437
+                      }
+                    }
+                  },
+                  "CONFIGURATION_ORDER": {
+                    "value": {
+                      "data": {
+                        "customerOrderId": 342287537,
+                        "configurationOrderId": 248030397
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "405": {
+            "$ref": "#/components/responses/405"
+          },
+          "406": {
+            "$ref": "#/components/responses/406"
+          },
+          "413": {
+            "$ref": "#/components/responses/413"
+          },
+          "414": {
+            "$ref": "#/components/responses/414"
+          },
+          "415": {
+            "$ref": "#/components/responses/415"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "451": {
+            "$ref": "#/components/responses/451"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://customer-netsms-customerorders-v1.dev.lpa.k8s.corp.clarobr/customer/v1",
+      "description": "Development (on-premises DC Lapa)"
+    },
+    {
+      "url": "https://customer-netsms-customerorders-v1-sit1.hom.lpa.k8s.corp.clarobr/customer/v1",
+      "description": "Homologation SIT01 (on-premises DC Lapa)"
+    },
+    {
+      "url": "https://customer-netsms-customerorders-v1-sit3.hom.lpa.k8s.corp.clarobr/customer/v1",
+      "description": "Homologation SIT03 (on-premises DC Lapa)"
+    },
+    {
+      "url": "https://customer-netsms-customerorders-v1-sit4.hom.lpa.k8s.corp.clarobr/customer/v1",
+      "description": "Homologation SIT04 (on-premises DC Lapa)"
+    },
+    {
+      "url": "https://customer-netsms-customerorders-v1-sit5.hom.lpa.k8s.corp.clarobr/customer/v1",
+      "description": "Homologation SIT05 (on-premises DC Lapa)"
+    },
+    {
+      "url": "https://customer-netsms-customerorders-v1-sit6.hom.lpa.k8s.corp.clarobr/customer/v1",
+      "description": "Homologation SIT06 (on-premises DC Lapa)"
+    },
+    {
+      "url": "https://customer-netsms-customerorders-v1-sit7.hom.lpa.k8s.corp.clarobr/customer/v1",
+      "description": "Homologation SIT07 (on-premises DC Lapa)"
+    },
+    {
+      "url": "https://customer-netsms-customerorders-v1-crt1.hom.lpa.k8s.corp.clarobr/customer/v1",
+      "description": "Homologation CRT01 (on-premises DC Lapa)"
+    },
+    {
+      "url": "https://customer-netsms-customerorders-v1.prod.lpa.k8s.corp.clarobr/customer/v1",
+      "description": "Production (on-premises DC Lapa)"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    },
+    "schemas": {
+      "cityId": {
+        "type": "string",
+        "description": "Código identificador da cidade.",
+        "example": "05509"
+      },
+      "operatorCode": {
+        "type": "string",
+        "description": "Código identificador da operadora.",
+        "example": "052"
+      },
+      "customerAccountId": {
+        "type": "number",
+        "description": "Código identificador do contrato do cliente.",
+        "example": 14613
+      },
+      "customerOrderTypeId": {
+        "type": "number",
+        "description": "Código identificador do tipo de solicitação. (SOLIC)",
+        "example": 10
+      },
+      "serviceOrderTypeId": {
+        "type": "number",
+        "description": "Código identificador do tipo da ordem de serviço. (OS)",
+        "example": 10
+      },
+      "newProductId": {
+        "type": "number",
+        "description": "Código identificador do novo produto a ser instalado no ponto do contrato.",
+        "example": 999
+      },
+      "currentProductId": {
+        "type": "number",
+        "description": "Código identificador do produto atual instalado no ponto do contrato.",
+        "example": 999
+      },
+      "name": {
+        "type": "string",
+        "description": "Nome do contato responsável pela abertura da solicitação.",
+        "example": "IncluirOSServicoManutencao / incluirComandoManutencaoRequest"
+      },
+      "telephoneNumber": {
+        "type": "string",
+        "description": "Número telefônico do contato responsável pela abertura da solicitação.",
+        "example": "11985694501"
+      },
+      "contact": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/name"
+          },
+          "telephoneNumber": {
+            "$ref": "#/components/schemas/telephoneNumber"
+          }
+        }
+      },
+      "paymentPlanId": {
+        "type": "number",
+        "description": "Código identificador do plano de pagamento para a solicitação.",
+        "example": 1
+      },
+      "isPaymentExempt": {
+        "type": "boolean",
+        "description": "Flag indicativa se haverá ou não cobrança para a solicitacção.",
+        "example": "FALSE"
+      },
+      "pointId": {
+        "type": "number",
+        "description": "Código identificador do ponto referente a solicitação.",
+        "example": 649778
+      },
+      "isImmediate": {
+        "type": "boolean",
+        "description": "Flag indicativa se o atendimento da solicitação será feito de forma imediata ou se necessita de agendamento técnico.",
+        "example": "FALSE"
+      },
+      "comment": {
+        "type": "string",
+        "description": "Campo de texto livre para inclusão de comentários.",
+        "example": "IncluirOSServicoManutencao / incluirComandoManutencaoRequestst"
+      },
+      "customerOrderId": {
+        "type": "number",
+        "description": "Código identificador da solicitação. (SOLIC)",
+        "example": 342287537
+      },
+      "serviceOrderId": {
+        "type": "number",
+        "description": "Código identificador da ordem de serviço. (OS)",
+        "example": 2453431437
+      },
+      "configurationOrderId": {
+        "type": "number",
+        "description": "Código identificador da ordem de configuração. (OC)",
+        "example": 248030397
+      },
+      "post.customer.v1.netsms.customerorders.request01.data.node": {
+        "type": "object",
+        "properties": {
+          "cityId": {
+            "$ref": "#/components/schemas/cityId"
+          },
+          "customerAccountId": {
+            "$ref": "#/components/schemas/customerAccountId"
+          },
+          "customerOrderTypeId": {
+            "$ref": "#/components/schemas/customerOrderTypeId"
+          },
+          "newProductId": {
+            "$ref": "#/components/schemas/newProductId"
+          },
+          "currentProductId": {
+            "$ref": "#/components/schemas/currentProductId"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/contact"
+          },
+          "paymentPlanId": {
+            "$ref": "#/components/schemas/paymentPlanId"
+          },
+          "isPaymentExempt": {
+            "$ref": "#/components/schemas/isPaymentExempt"
+          },
+          "pointId": {
+            "$ref": "#/components/schemas/pointId"
+          },
+          "isImmediate": {
+            "$ref": "#/components/schemas/isImmediate"
+          },
+          "comment": {
+            "$ref": "#/components/schemas/comment"
+          }
+        },
+        "required": [
+          "cityId",
+          "customerAccountId",
+          "customerOrderTypeId",
+          "newProductId",
+          "currentProductId",
+          "paymentPlanId",
+          "isPaymentExempt",
+          "pointId",
+          "isImmediate"
+        ]
+      },
+      "post.customer.v1.netsms.customerorders.request02.data.node": {
+        "type": "object",
+        "properties": {
+          "operatorCode": {
+            "$ref": "#/components/schemas/operatorCode"
+          },
+          "customerAccountId": {
+            "$ref": "#/components/schemas/customerAccountId"
+          },
+          "customerOrderTypeId": {
+            "$ref": "#/components/schemas/customerOrderTypeId"
+          },
+          "newProductId": {
+            "$ref": "#/components/schemas/newProductId"
+          },
+          "currentProductId": {
+            "$ref": "#/components/schemas/currentProductId"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/contact"
+          },
+          "paymentPlanId": {
+            "$ref": "#/components/schemas/paymentPlanId"
+          },
+          "isPaymentExempt": {
+            "$ref": "#/components/schemas/isPaymentExempt"
+          },
+          "pointId": {
+            "$ref": "#/components/schemas/pointId"
+          },
+          "isImmediate": {
+            "$ref": "#/components/schemas/isImmediate"
+          },
+          "comment": {
+            "$ref": "#/components/schemas/comment"
+          }
+        },
+        "required": [
+          "operatorCode",
+          "customerAccountId",
+          "customerOrderTypeId",
+          "newProductId",
+          "currentProductId",
+          "paymentPlanId",
+          "isPaymentExempt",
+          "pointId",
+          "isImmediate"
+        ]
+      },
+      "post.customer.v1.netsms.customerorders.request03.data.node": {
+        "type": "object",
+        "properties": {
+          "cityId": {
+            "$ref": "#/components/schemas/cityId"
+          },
+          "customerAccountId": {
+            "$ref": "#/components/schemas/customerAccountId"
+          },
+          "serviceOrderTypeId": {
+            "$ref": "#/components/schemas/serviceOrderTypeId"
+          },
+          "newProductId": {
+            "$ref": "#/components/schemas/newProductId"
+          },
+          "currentProductId": {
+            "$ref": "#/components/schemas/currentProductId"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/contact"
+          },
+          "paymentPlanId": {
+            "$ref": "#/components/schemas/paymentPlanId"
+          },
+          "isPaymentExempt": {
+            "$ref": "#/components/schemas/isPaymentExempt"
+          },
+          "pointId": {
+            "$ref": "#/components/schemas/pointId"
+          },
+          "isImmediate": {
+            "$ref": "#/components/schemas/isImmediate"
+          },
+          "comment": {
+            "$ref": "#/components/schemas/comment"
+          }
+        },
+        "required": [
+          "cityId",
+          "customerAccountId",
+          "serviceOrderTypeId",
+          "newProductId",
+          "currentProductId",
+          "paymentPlanId",
+          "isPaymentExempt",
+          "pointId",
+          "isImmediate"
+        ]
+      },
+      "post.customer.v1.netsms.customerorders.request04.data.node": {
+        "type": "object",
+        "properties": {
+          "operatorCode": {
+            "$ref": "#/components/schemas/operatorCode"
+          },
+          "customerAccountId": {
+            "$ref": "#/components/schemas/customerAccountId"
+          },
+          "serviceOrderTypeId": {
+            "$ref": "#/components/schemas/serviceOrderTypeId"
+          },
+          "newProductId": {
+            "$ref": "#/components/schemas/newProductId"
+          },
+          "currentProductId": {
+            "$ref": "#/components/schemas/currentProductId"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/contact"
+          },
+          "paymentPlanId": {
+            "$ref": "#/components/schemas/paymentPlanId"
+          },
+          "isPaymentExempt": {
+            "$ref": "#/components/schemas/isPaymentExempt"
+          },
+          "pointId": {
+            "$ref": "#/components/schemas/pointId"
+          },
+          "isImmediate": {
+            "$ref": "#/components/schemas/isImmediate"
+          },
+          "comment": {
+            "$ref": "#/components/schemas/comment"
+          }
+        },
+        "required": [
+          "operatorCode",
+          "customerAccountId",
+          "serviceOrderTypeId",
+          "newProductId",
+          "currentProductId",
+          "paymentPlanId",
+          "isPaymentExempt",
+          "pointId",
+          "isImmediate"
+        ]
+      },
+      "post.order.activation.status.request.body.node": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/post.customer.v1.netsms.customerorders.request01.data.node"
+              },
+              {
+                "$ref": "#/components/schemas/post.customer.v1.netsms.customerorders.request02.data.node"
+              },
+              {
+                "$ref": "#/components/schemas/post.customer.v1.netsms.customerorders.request03.data.node"
+              },
+              {
+                "$ref": "#/components/schemas/post.customer.v1.netsms.customerorders.request04.data.node"
+              }
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "post.order.activation.status.response.data.node": {
+        "type": "object",
+        "properties": {
+          "customerOrderId": {
+            "$ref": "#/components/schemas/customerOrderId"
+          },
+          "serviceOrderId": {
+            "$ref": "#/components/schemas/serviceOrderId"
+          },
+          "configurationOrderId": {
+            "$ref": "#/components/schemas/configurationOrderId"
+          }
+        },
+        "required": [
+          "customerOrderId"
+        ]
+      },
+      "post.order.activation.status.response.body.node": {
+        "description": "Root structure of an Order Activation POST response.",
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/post.order.activation.status.response.data.node"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "error-api-customersorders-001": {
+        "description": "API-EQUIPMENTSLOCATIONS-001 error structure.",
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/error"
+          }
+        }
+      },
+      "error": {
+        "description": "Object returned when an error occurs (4xx/5xx)",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "httpCode": {
+                "type": "string",
+                "description": "HTTP error code"
+              },
+              "errorCode": {
+                "type": "string",
+                "description": "Internal API error code. Ex.: API-3566. This code can be used by consumer to map its error message."
+              },
+              "message": {
+                "type": "string",
+                "description": "Error Message."
+              },
+              "detailedMessage": {
+                "type": "string",
+                "description": "Detailed error message."
+              },
+              "link": {
+                "type": "object",
+                "description": "Object containing page link to errors detailed documentation on API Portal.",
+                "properties": {
+                  "rel": {
+                    "type": "string",
+                    "enum": [
+                      "related"
+                    ],
+                    "description": "To reference the API portal error page is used the “related” semantics in this scenario."
+                  },
+                  "href": {
+                    "type": "string",
+                    "description": "Resource URL"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "xml"
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "400",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-400",
+                "message": "Bad Request",
+                "detailedMessage": "Bad Request.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "401",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-401",
+                "message": "Unauthorized",
+                "detailedMessage": "Unauthorized user.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "Forbidden",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "403",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-403",
+                "message": "Forbidden",
+                "detailedMessage": "Client authorization failed.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "404",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-404",
+                "message": "Not found",
+                "detailedMessage": "Resource not found.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "405": {
+        "description": "Method Not Allowed",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "405",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-405",
+                "message": "Method Not Allowed",
+                "detailedMessage": "Unavailable HTTP method.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "406": {
+        "description": "Not Acceptable",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "406",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-406",
+                "message": "Request Not Acceptable",
+                "detailedMessage": "Requested content type not acceptable.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "413": {
+        "description": "Request Entity Too Large",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "413",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-413",
+                "message": "Request Entity Too Large",
+                "detailedMessage": "Payload limits check failed.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "414": {
+        "description": "Request-URI Too Large",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "414",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-414",
+                "message": "Request-URI Too Large",
+                "detailedMessage": "URI limits check failed.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "415": {
+        "description": "Unsupported Media Type",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "415",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-415",
+                "message": "Unsupported Media Type",
+                "detailedMessage": "Unsupported Media Type.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Unprocessable Entity",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/error-api-customersorders-001"
+                }
+              ]
+            },
+            "examples": {
+              "API-CUSTOMERSORDERS-001": {
+                "value": {
+                  "error": {
+                    "httpCode": "422",
+                    "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-001",
+                    "message": "Unprocessable Entity",
+                    "detailedMessage": "Já existe uma ordem de serviço aberta para este tipo de solicitação.",
+                    "link": {
+                      "rel": "related",
+                      "href": "https://api.claro.com.br/docs"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "429": {
+        "description": "Too Many Requests",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "429",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-429",
+                "message": "Too Many Requests",
+                "detailedMessage": "Consumer requests exceeded policies.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "451": {
+        "description": "Unavailable For Legal Reasons",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "451",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-451",
+                "message": "Unavailable For Legal Reasons",
+                "detailedMessage": "Unavailable For Legal Reasons.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "500",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-500",
+                "message": "Internal Server Error",
+                "detailedMessage": "Internal Server Error.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "503": {
+        "description": "Service unavailable",
+        "headers": {
+          "X-Correlation-Id": {
+            "description": "Código UUID identificador da transação fornecido pelo consumidor da API/MS.",
+            "schema": {
+              "type": "string",
+              "example": "b6195102-ea4f-44e8-fed5-386e4ec2a373"
+            },
+            "required": true
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error"
+            },
+            "example": {
+              "error": {
+                "httpCode": "503",
+                "errorCode": "CUSTOMER-NETSMS-CUSTOMERORDERS-503",
+                "message": "Service Unavailable",
+                "detailedMessage": "Service Unavailable.",
+                "link": {
+                  "rel": "related",
+                  "href": "https://api.claro.com.br/docs"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

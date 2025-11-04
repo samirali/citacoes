@@ -1,0 +1,228 @@
+{
+  "data": {
+    "proposal": {
+      "operatorCode": "010",
+      "protocol": "010235178525002",
+      "salesforceId": "8018V000006l41gQAA",
+      "installation": {
+        "hp": "841538666",
+        "products": [
+          {
+            "netsmsId": 57057,
+            "charges": [
+              {
+                "amount": 0,
+                "chargeType": "PURCHASE",
+                "parcel": 0
+              },
+              {
+                "chargeType": "RECURRENT",
+                "parcel": 0,
+                "amount": 135
+              }
+            ],
+            "name": "Ponto Principal",
+            "additionalProducts": [
+              {
+                "netsmsId": 57010,
+                "charges": [
+                  {
+                    "amount": 0,
+                    "chargeType": "PURCHASE",
+                    "parcel": 0
+                  },
+                  {
+                    "chargeType": "RECURRENT",
+                    "parcel": 0,
+                    "amount": 155
+                  }
+                ],
+                "name": "Internet Installation product",
+                "additionalProducts": [
+                  {
+                    "netsmsId": 4700,
+                    "charges": [
+                      {
+                        "amount": 0,
+                        "chargeType": "PURCHASE",
+                        "parcel": 0
+                      },
+                      {
+                        "chargeType": "RECURRENT",
+                        "parcel": 0,
+                        "amount": 0
+                      }
+                    ],
+                    "name": "Acesso gratis"
+                  },
+                  {
+                    "netsmsId": 3447,
+                    "charges": [
+                      {
+                        "amount": 0,
+                        "chargeType": "PURCHASE",
+                        "parcel": 0
+                      },
+                      {
+                        "chargeType": "RECURRENT",
+                        "parcel": 0,
+                        "amount": 0
+                      }
+                    ],
+                    "name": "Comodato"
+                  },
+                  {
+                    "netsmsId": 55072,
+                    "charges": [
+                      {
+                        "amount": 0,
+                        "chargeType": "PURCHASE",
+                        "parcel": 0
+                      },
+                      {
+                        "chargeType": "RECURRENT",
+                        "parcel": 0,
+                        "amount": 0
+                      }
+                    ],
+                    "name": "SVA INTERNET",
+                    "isPackaged": true
+                  },
+                  {
+                    "netsmsId": 55143,
+                    "charges": [
+                      {
+                        "amount": 0,
+                        "chargeType": "PURCHASE",
+                        "parcel": 0
+                      },
+                      {
+                        "chargeType": "RECURRENT",
+                        "parcel": 0,
+                        "amount": 19.9
+                      }
+                    ],
+                    "name": "SVA INTERNET",
+                    "isPackaged": true
+                  }
+                ]
+              },
+              {
+                "netsmsId": 9529,
+                "charges": [
+                  {
+                    "amount": 0,
+                    "chargeType": "PURCHASE",
+                    "parcel": 0
+                  },
+                  {
+                    "chargeType": "RECURRENT",
+                    "parcel": 0,
+                    "amount": 0
+                  }
+                ],
+                "name": "Comodato digital"
+              },
+              {
+                "netsmsId": 57056,
+                "charges": [
+                  {
+                    "amount": 0,
+                    "chargeType": "PURCHASE",
+                    "parcel": 0
+                  },
+                  {
+                    "chargeType": "RECURRENT",
+                    "parcel": 0,
+                    "amount": 34.9
+                  }
+                ],
+                "name": "Pontos Adicionais",
+                "additionalProducts": [
+                  {
+                    "netsmsId": 9529,
+                    "charges": [
+                      {
+                        "amount": 0,
+                        "chargeType": "PURCHASE",
+                        "parcel": 0
+                      },
+                      {
+                        "chargeType": "RECURRENT",
+                        "parcel": 0,
+                        "amount": 0
+                      }
+                    ],
+                    "name": "Comodato digital"
+                  },
+                  {
+                    "netsmsId": 31439,
+                    "charges": [
+                      {
+                        "amount": 0,
+                        "chargeType": "PURCHASE",
+                        "parcel": 0
+                      },
+                      {
+                        "chargeType": "RECURRENT",
+                        "parcel": 0,
+                        "amount": 0
+                      }
+                    ],
+                    "name": "A La Carte"
+                  }
+                ]
+              },
+              {
+                "netsmsId": 11888,
+                "charges": [
+                  {
+                    "amount": 0,
+                    "chargeType": "PURCHASE",
+                    "parcel": 0
+                  },
+                  {
+                    "chargeType": "RECURRENT",
+                    "parcel": 0,
+                    "amount": 0
+                  }
+                ],
+                "name": "A La Carte"
+              }
+            ]
+          }
+        ]
+      },
+      "invoice": {
+        "invoiceDay": "5",
+        "paymentMethod": "BOLETO",
+        "shippingAddress": {
+          "city": "GOIANIA",
+          "complements": "APT 18",
+          "neighborhood": "SETOR MARECHAL RONDON",
+          "number": "00110",
+          "postalCode": "74560075",
+          "state": "GO",
+          "street": "R 23"
+        },
+        "shippingEmail": "jose.monteiro@claro.com.br"
+      },
+      "prospect": {
+        "email": "jose.monteiro@claro.com.br",
+        "mainPhoneNumber": "21991186057",
+        "mobilePhoneNumber": "21991186057",
+        "cnaeCode": 4754701,
+        "cnpj": 41814549000105,
+        "commercialPhoneNumber": "21991186057",
+        "ie": "ISENTO",
+        "name": "Teste WESLEY DOS SANTOS DIOLINO",
+        "mobileCustomer": false
+      },
+      "netsmsProfile": "PTV + VIRTUA",
+      "serviceDate": "2023-04-18T12:28:53.000Z",
+      "seller": {
+        "sellerLogin": "F120500"
+      }
+    }
+  }
+}
